@@ -1,12 +1,21 @@
 FROM mysql:5.7
 
+# FOR TESTING ONLY: DB HAS NO PASSWORD
+
+#######################
 # TO USE:
 # 1. customize ENV's below
 # 2. start container and it will create databases (could take minutes or longer)
+#    i.e. docker run --storage-opt size=28G -d --name sysbench bretfisher/sysbench-docker-hpe
 # 3. run /opt/sysbench_run.sh to kick off a test run
+#    i.e. docker exec -it sysbench bash /opt/sysbench_run.sh
+
+# Lots of docs and scripts at https://github.com/BretFisher/sysbench-docker-hpe
 
 # NOTE: mysql has a VOLUME at /var/lib/mysql
 # so you may want to customize the volume storage for that or bind-mount to host
+#######################
+
 
 ##
 ## install sysbench
@@ -42,7 +51,7 @@ ENV MYSQL_ALLOW_EMPTY_PASSWORD=true \
     MYSQL_FLUSHMETHOD=O_DIRECT
 #######################
 
-
+# update mysql config file with our setting above, which means mysql ENV's are set at build time
 RUN echo "innodb_buffer_pool_size = ${MYSQL_BUFFERSIZE}" >> ${MYSQL_CONFIG} && \
     echo "innodb_log_file_size = ${MYSQL_LOGSIZE}" >> ${MYSQL_CONFIG} && \
     echo "innodb_flush_log_at_trx_commit = ${MYSQL_FLUSHLOG}" >> ${MYSQL_CONFIG} && \
@@ -50,10 +59,12 @@ RUN echo "innodb_buffer_pool_size = ${MYSQL_BUFFERSIZE}" >> ${MYSQL_CONFIG} && \
 
 
 # this will create DB's on container start, and may take some time depending on your ENV's above
+# if you set them inline with -e during docker run, you can override defaults above before db is created
 RUN echo 'sysbench --test=/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-tables-count=${SYSBENCH_TABLE_COUNT} --oltp-table-size=${SYSBENCH_TABLE_SIZE} --mysql-db=${MYSQL_DATABASE} --mysql-user=root prepare' > /docker-entrypoint-initdb.d/sysbench_prepare.sh && \
     chmod +x /docker-entrypoint-initdb.d/sysbench_prepare.sh
 
 
 # run /opt/sysbench_run.sh to start a single test run
+# if you set them inline with -e during docker exec, you can override defaults above before testing starts
 RUN echo 'sysbench --test=/sysbench/tests/include/oltp_legacy/oltp.lua --oltp-tables-count=${SYSBENCH_TABLE_COUNT} --oltp-table-size=${SYSBENCH_TABLE_SIZE} --oltp-test-mode=complex --num-threads=${SYSBENCH_NUM_THREADS} --max-time=${SYSBENCH_MAX_TIME} --max-requests=${SYSBENCH_MAX_REQUESTS} --mysql-db=${MYSQL_DATABASE} --mysql-user=root run' > /opt/sysbench_run.sh && \
     chmod +x /opt/sysbench_run.sh
