@@ -7,6 +7,8 @@ You can use the files in each Scenario below to re-create our benchmarks of MySQ
 
 The main goal of these reference files is to help you benchmark MySQL and other workloads in your environment as you move from virtual machines to containers-in-vm's and eventually containers-on-bare-metal, and ensure you're seeing the performance improvements you'd expect.
 
+Docker Hub repo is [bretfisher/sysbench-docker-hpe](https://hub.docker.com/r/bretfisher/sysbench-docker-hpe/)
+
 ## Versions Tested With
 
   - RHEL 7.2
@@ -22,8 +24,8 @@ The main goal of these reference files is to help you benchmark MySQL and other 
 
 ## Scenario 2: Using multiple official MySQL Docker images on a single virtual machine
 
-  - Use `/docker/Dockefile` to build a image with MySQL, Sysbench, and scripts installed
-  - Use `/docker/build.sh` as an example build command
+  - Use `/docker/Dockefile` to build a image with MySQL, Sysbench, and scripts installed, or download an image with default values by `docker pull bretfisher/sysbench-docker-hpe`
+  - Use `/docker/build.sh` as an example build command to make your own image
   - Use `/docker/run8.sh` to start 8 containers and build test db's in each one
   - Use `/docker/test8.sh` to start sysbench workloads across 8 containers (detached)
   - Use `/docker/results.sh` to grep transaction results from 8 containers

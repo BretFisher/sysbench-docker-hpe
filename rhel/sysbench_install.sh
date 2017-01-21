@@ -8,17 +8,17 @@
 ## update these to your environment
 ######################################
 
-SYSBENCH_TABLE_SIZE=100000000       # how many records for sysbench to create in each table
+SYSBENCH_TABLE_SIZE=1000000         # how many records for sysbench to create in each table
 SYSBENCH_TABLE_COUNT=3              # how many tables for sysbench to create in db
-SYSBENCH_NUM_THREADS=40             # how many concurrent threads should sysbench run
+SYSBENCH_NUM_THREADS=10             # how many concurrent threads should sysbench run
 SYSBENCH_MAX_TIME=1200              # quit the test run if you hit this time limit, in seconds
 SYSBENCH_MAX_REQUESTS=1000000       # quit the test run after this many requests to db
 
 MYSQL_DATABASE=sysbench
 MYSQL_USER=root
 MYSQL_PASSWORD=pass22TT
-MYSQL_BUFFERSIZE=2G                 # set to 60-80% of memory on the OS
-MYSQL_LOGSIZE=512M                   # anything above 64M didn't seem to make a perf difference 
+MYSQL_BUFFERSIZE=1G                 # set to 60-80% of memory on the OS
+MYSQL_LOGSIZE=256M                   # anything above 64M didn't seem to make a perf difference 
 MYSQL_FLUSHLOG=1
 MYSQL_FLUSHMETHOD=O_DIRECT
 
