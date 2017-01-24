@@ -16,6 +16,15 @@ FROM mysql:5.7
 # so you may want to customize the volume storage for that or bind-mount to host
 #######################
 
+ARG VCS_REF
+
+LABEL org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.name="sysbench-docker-hpe" \
+      org.label-schema.description="Dockerfile for MySQL and Sysbench to benchmark systems" \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="https://github.com/BretFisher/sysbench-docker-hpe" \
+      org.label-schema.vendor="Bret Fisher" \
+      org.label-schema.schema-version="1.0"
 
 ##
 ## install sysbench
