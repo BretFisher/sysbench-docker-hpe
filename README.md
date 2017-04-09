@@ -24,8 +24,8 @@ Docker Hub repo is [bretfisher/sysbench-docker-hpe](https://hub.docker.com/r/bre
 
 ## Scenario 2: Using multiple official MySQL Docker images on a single virtual machine
 
-  - Use `/docker/Dockefile` to build a image with MySQL, Sysbench, and scripts installed, or download an image with default values by `docker pull bretfisher/sysbench-docker-hpe`
-  - Use `/docker/build.sh` as an example build command to make your own image
+  - Use `/docker/Dockefile` and `/docker/build.sh` to build a image with MySQL, Sysbench, and scripts installed
+  - Or download my image with default values by `docker pull bretfisher/sysbench-docker-hpe` then `docker tag bretfisher/sysbench-docker-hpe sysbench` to give it a friendly name to work with in rest of these scripts
   - Use `/docker/run8.sh` to start 8 containers and build test db's in each one
   - Use `/docker/test8.sh` to start sysbench workloads across 8 containers (detached)
   - Use `/docker/results.sh` to grep transaction results from 8 containers
@@ -34,6 +34,10 @@ Docker Hub repo is [bretfisher/sysbench-docker-hpe](https://hub.docker.com/r/bre
 ## Scenario 3: Using multiple official MySQL Docker images on a single bare metal host
 
   - Use the same process as in Scenario 2
+
+## Saving Time
+  - You can save time by pulling my `bretfisher/sysbench-docker-hpe` image rather then building your own (if my defaults work for you)
+  - As you're doing this you'll start to notice significant time used to run `run8.sh` as the sysbench will be creating sample data for each container. If you're not benchmarking the actual sample data creation (I don't) then you can save time by creating a single container with the sample data, then using `docker commit` to save it (and db's) to a new image, and then run your `test8.sh` from there. Doing this way requires editing the scripts a bit and also means you'll need to store db's *in* your containers, which may not work if you're wanting to test storage that's using Docker Volumes or Bind Mounts.
 
 # Getting help
 

@@ -15,7 +15,9 @@
 # use '--cpuset-cpus 1-4' to limit container to the first 4 cpu's
 # use '--memory 31G' for example to limit container to 31GB
 
-# NOTE: we use --storage-opt size=XXG to ensure the container doesn't fill up during db create
+# NOTE: we use --storage-opt size=XXG to ensure the container doesn't fill up during db create on devicemapper storage driver
+# if you're using something other then devicemapper you may need to remove storage-opt
+# https://docs.docker.com/engine/reference/commandline/run/#set-storage-driver-options-per-container
 
 for i in {1..8}
 do
