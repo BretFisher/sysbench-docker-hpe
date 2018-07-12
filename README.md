@@ -1,7 +1,7 @@
 Sysbench and Docker Setups to Benchmark Physical, Virtual, and Container-based MySQL
 ==============================
 
-This repository containers scripts, Dockerfiles, and configs that were used for the Hewlett Packard Enterprise (HPE) and Docker Inc. reference architecture paper "[HPE and Docker Reference Configuration for infrastructure optimization using Docker containers on HPE infrastructure](http://h20195.www2.hpe.com/V2/GetDocument.aspx?docname=a00001414enw)" from early 2017.
+This repository containers scripts, Dockerfiles, and configs that were used for the Hewlett Packard Enterprise (HPE) and Docker Inc. reference architecture paper "[HPE and Docker Reference Configuration for infrastructure optimization using Docker containers on HPE infrastructure](http://d.pr/f/Zjv65z/1BuMbZ8p)" from early 2017.
 
 You can use the files in each Scenario below to re-create our benchmarks of MySQL being used by Sysbench to get a TPS (Transactions Per Second) out of each Scenario.
 
